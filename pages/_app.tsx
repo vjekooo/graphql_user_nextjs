@@ -4,16 +4,16 @@ import { ApolloProvider } from 'react-apollo'
 import withApollo from '../lib/withApollo'
 
 class MyApp extends App<any> {
-  render () {
-    const { Component, pageProps, apolloClient } = this.props
-    return (
-      <Container>
-        <ApolloProvider client={apolloClient}>
-          <Component {...pageProps} />
-        </ApolloProvider>
-      </Container>
-    )
-  }
+	render () {
+		const { Component, pageProps, apolloClient } = this.props
+		return (
+			<Container>
+			<ApolloProvider client={apolloClient}>
+				<Component {...pageProps} />
+			</ApolloProvider>
+			</Container>
+		)
+	}
 }
 
 export default withApollo(MyApp)
