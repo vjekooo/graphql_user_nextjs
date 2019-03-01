@@ -121,22 +121,35 @@ var Layout = function Layout(_ref) {
       lineNumber: 21
     },
     __self: this
-  }, "About")), " | ", ' ')), children, react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("footer", {
+  }, "About")), " | ", ' ', react__WEBPACK_IMPORTED_MODULE_0__["createElement"](next_link__WEBPACK_IMPORTED_MODULE_1___default.a, {
+    href: "/register",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 25
+      lineNumber: 22
     },
     __self: this
-  }, react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("hr", {
+  }, react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("a", {
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 22
+    },
+    __self: this
+  }, "Register")), " | ", ' ')), children, react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("footer", {
     __source: {
       fileName: _jsxFileName,
       lineNumber: 26
     },
     __self: this
-  }), react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("span", {
+  }, react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("hr", {
     __source: {
       fileName: _jsxFileName,
       lineNumber: 27
+    },
+    __self: this
+  }), react__WEBPACK_IMPORTED_MODULE_0__["createElement"]("span", {
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 28
     },
     __self: this
   }, "I'm here to stay (Footer)")));
@@ -169,21 +182,34 @@ function _objectWithoutPropertiesLoose(source, excluded) { if (source == null) r
 
 var InputField = function InputField(_ref) {
   var field = _ref.field,
-      props = _objectWithoutProperties(_ref, ["field"]);
+      _ref$form = _ref.form,
+      errors = _ref$form.errors,
+      touched = _ref$form.touched,
+      props = _objectWithoutProperties(_ref, ["field", "form"]);
 
+  var errorMessage = touched[field.name] && errors[field.name];
   return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-    __source: {
-      fileName: _jsxFileName,
-      lineNumber: 9
-    },
-    __self: this
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", _extends({}, field, props, {
     __source: {
       fileName: _jsxFileName,
       lineNumber: 10
     },
     __self: this
-  })));
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", _extends({}, field, props, {
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 11
+    },
+    __self: this
+  })), errorMessage && react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    style: {
+      color: 'red'
+    },
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 13
+    },
+    __self: this
+  }, errorMessage));
 };
 
 /***/ }),
@@ -32540,38 +32566,38 @@ var RegisterPage = function RegisterPage() {
     title: "Register page",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 14
+      lineNumber: 15
     },
     __self: this
   }, react__WEBPACK_IMPORTED_MODULE_2__["createElement"]("h1", {
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 15
+      lineNumber: 16
     },
     __self: this
   }, "Register \uD83D\uDC4B"), react__WEBPACK_IMPORTED_MODULE_2__["createElement"]("p", {
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 16
+      lineNumber: 17
     },
     __self: this
   }, react__WEBPACK_IMPORTED_MODULE_2__["createElement"](next_link__WEBPACK_IMPORTED_MODULE_1___default.a, {
     href: "/about",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 17
+      lineNumber: 18
     },
     __self: this
   }, react__WEBPACK_IMPORTED_MODULE_2__["createElement"]("a", {
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 18
+      lineNumber: 19
     },
     __self: this
   }, "About"))), react__WEBPACK_IMPORTED_MODULE_2__["createElement"](_generated_apolloComponents__WEBPACK_IMPORTED_MODULE_6__["RegisterComponent"], {
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 21
+      lineNumber: 22
     },
     __self: this
   }, function (register) {
@@ -32579,35 +32605,52 @@ var RegisterPage = function RegisterPage() {
       onSubmit:
       /*#__PURE__*/
       function () {
-        var _ref = _asyncToGenerator(
+        var _ref2 = _asyncToGenerator(
         /*#__PURE__*/
-        _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(data) {
-          var response;
+        _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(data, _ref) {
+          var setErrors, response, errors;
           return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
             while (1) {
               switch (_context.prev = _context.next) {
                 case 0:
-                  _context.next = 2;
+                  setErrors = _ref.setErrors;
+                  _context.prev = 1;
+                  _context.next = 4;
                   return register({
                     variables: {
                       data: data
                     }
                   });
 
-                case 2:
-                  response = _context.sent;
-                  console.log(response);
-
                 case 4:
+                  response = _context.sent;
+                  if (response) console.log(response.errors);
+                  _context.next = 13;
+                  break;
+
+                case 8:
+                  _context.prev = 8;
+                  _context.t0 = _context["catch"](1);
+                  errors = {};
+
+                  _context.t0.graphQLErrors[0].validationErrors.forEach(function (validationErrors) {
+                    Object.values(validationErrors.constraints).forEach(function (message) {
+                      errors[validationErrors.property] = message;
+                    });
+                  });
+
+                  setErrors(errors);
+
+                case 13:
                 case "end":
                   return _context.stop();
               }
             }
-          }, _callee);
+          }, _callee, null, [[1, 8]]);
         }));
 
-        return function (_x) {
-          return _ref.apply(this, arguments);
+        return function (_x, _x2) {
+          return _ref2.apply(this, arguments);
         };
       }(),
       initialValues: {
@@ -32618,17 +32661,17 @@ var RegisterPage = function RegisterPage() {
       },
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 23
+        lineNumber: 24
       },
       __self: this
-    }, function (_ref2) {
-      var values = _ref2.values,
-          handleSubmit = _ref2.handleSubmit;
+    }, function (_ref3) {
+      var values = _ref3.values,
+          handleSubmit = _ref3.handleSubmit;
       return react__WEBPACK_IMPORTED_MODULE_2__["createElement"]("form", {
         onSubmit: handleSubmit,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 40
+          lineNumber: 53
         },
         __self: this
       }, react__WEBPACK_IMPORTED_MODULE_2__["createElement"](formik__WEBPACK_IMPORTED_MODULE_3__["Field"], {
@@ -32637,7 +32680,7 @@ var RegisterPage = function RegisterPage() {
         component: _components_fields_InputField__WEBPACK_IMPORTED_MODULE_5__["InputField"],
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 41
+          lineNumber: 54
         },
         __self: this
       }), react__WEBPACK_IMPORTED_MODULE_2__["createElement"](formik__WEBPACK_IMPORTED_MODULE_3__["Field"], {
@@ -32646,7 +32689,7 @@ var RegisterPage = function RegisterPage() {
         component: _components_fields_InputField__WEBPACK_IMPORTED_MODULE_5__["InputField"],
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 46
+          lineNumber: 59
         },
         __self: this
       }), react__WEBPACK_IMPORTED_MODULE_2__["createElement"](formik__WEBPACK_IMPORTED_MODULE_3__["Field"], {
@@ -32655,7 +32698,7 @@ var RegisterPage = function RegisterPage() {
         component: _components_fields_InputField__WEBPACK_IMPORTED_MODULE_5__["InputField"],
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 51
+          lineNumber: 64
         },
         __self: this
       }), react__WEBPACK_IMPORTED_MODULE_2__["createElement"](formik__WEBPACK_IMPORTED_MODULE_3__["Field"], {
@@ -32665,14 +32708,14 @@ var RegisterPage = function RegisterPage() {
         component: _components_fields_InputField__WEBPACK_IMPORTED_MODULE_5__["InputField"],
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 56
+          lineNumber: 69
         },
         __self: this
       }), react__WEBPACK_IMPORTED_MODULE_2__["createElement"]("button", {
         type: "submit",
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 62
+          lineNumber: 75
         },
         __self: this
       }, "Register"));
@@ -32703,7 +32746,7 @@ var RegisterPage = function RegisterPage() {
 
 /***/ }),
 
-/***/ 3:
+/***/ 4:
 /*!**********************************!*\
   !*** multi ./pages/register.tsx ***!
   \**********************************/
@@ -32728,5 +32771,5 @@ module.exports = dll_0a597f1180c5df020b3a;
 
 /***/ })
 
-},[[3,"static/runtime/webpack.js"]]]));;
+},[[4,"static/runtime/webpack.js"]]]));;
 //# sourceMappingURL=register.js.map

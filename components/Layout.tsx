@@ -19,6 +19,7 @@ const Layout: React.FunctionComponent<Props> = ({ children, title = 'This is the
         <Link href='/list-fc'><a>List as Functional Component</a></Link> | {' '}
         <Link href='/list-class'><a>List As Class</a></Link> | {' '}
         <Link href='/about'><a>About</a></Link> | {' '}
+        <Link href='/register'><a>Register</a></Link> | {' '}
       </nav>
     </header>
     {children}

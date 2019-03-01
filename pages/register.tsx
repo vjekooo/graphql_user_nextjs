@@ -5,9 +5,10 @@ import * as React from 'react'
 import { Formik, Field } from 'formik'
 
 import Layout from '../components/Layout'
-import { InputField } from '../components/fields/InputField';
+import { InputField } from '../components/fields/InputField'
 
 import { RegisterComponent } from '../generated/apolloComponents'
+import { error } from 'util';
 
 const RegisterPage: React.FunctionComponent = () => {
 	return (
@@ -21,13 +22,25 @@ const RegisterPage: React.FunctionComponent = () => {
             <RegisterComponent>
                 {(register) => (
                     <Formik
-                        onSubmit={async data => {
-                            const response = await register({
-                                variables: {
-                                    data
-                                } 
-                            })
-                            console.log(response)
+                        onSubmit={async (data, { setErrors }) => {
+                            try {
+                                const response = await register({
+                                    variables: {
+                                        data
+                                    } 
+                                })
+                                if (response) console.log(response.errors)
+                            } catch (err) {
+                                const errors: { [key: string]: string } = {}
+                                err.graphQLErrors[0].validationErrors.forEach((validationErrors: any) => {
+                                    Object.values(validationErrors.constraints).forEach(
+                                        (message: any) => {
+                                            errors[validationErrors.property] = message
+                                        }
+                                    )
+                                })
+                                setErrors(errors)
+                            }
                         }}
                         initialValues={{
                             email: '',
