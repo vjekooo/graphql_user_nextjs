@@ -1,24 +1,16 @@
 
-import Link from 'next/link'
 import * as React from 'react'
-
+import Router from 'next/router';
 import { Formik, Field } from 'formik'
 
 import Layout from '../components/Layout'
 import { InputField } from '../components/fields/InputField'
-
 import { RegisterComponent } from '../generated/apolloComponents'
-import { error } from 'util';
 
-const RegisterPage: React.FunctionComponent = () => {
+export default () => {
 	return (
 		<Layout title="Register page">
 			<h1>Register 👋</h1>
-			<p>
-				<Link href='/about'>
-					<a>About</a>
-				</Link>
-			</p>
             <RegisterComponent>
                 {(register) => (
                     <Formik
@@ -27,9 +19,10 @@ const RegisterPage: React.FunctionComponent = () => {
                                 const response = await register({
                                     variables: {
                                         data
-                                    } 
+                                    }
                                 })
-                                if (response) console.log(response.errors)
+                                if (response) console.log(response)
+                                Router.push('/check-email')
                             } catch (err) {
                                 const errors: { [key: string]: string } = {}
                                 err.graphQLErrors[0].validationErrors.forEach((validationErrors: any) => {
@@ -85,5 +78,3 @@ const RegisterPage: React.FunctionComponent = () => {
 		</Layout>
 	)
 }
-
-export default RegisterPage;

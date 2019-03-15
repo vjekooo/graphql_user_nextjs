@@ -13,20 +13,11 @@ const IndexPage: React.FunctionComponent = () => {
 					<a>About</a>
 				</Link>
 			</p>
-			<LoginComponent>
-				{mutate => (
-					<button
-						onClick={async () => {
-							const response = await mutate();
-							console.log(response);
-						}}
-					>
-						call login mutation
-					</button>
-				)}
-      		</LoginComponent>
+			<h1>
+				Whaaaaaa
+			</h1>
 		</Layout>
 	)
 }
 
-export default IndexPage;
+export default IndexPage
